@@ -3,7 +3,13 @@ import joblib
 import pandas as pd
 
 model = joblib.load("house_price_model.pkl")
-columns = joblib.load("feature_columns.pkl")
+columns = joblib.load("feature_columns.pkl")import os
+
+BASE_DIR = os.path.dirname(__file__)
+
+model = joblib.load(os.path.join(BASE_DIR, "house_price_model.pkl"))
+columns = joblib.load(os.path.join(BASE_DIR, "feature_columns.pkl"))
+
 
 st.title("Predict House Price")
 
@@ -62,5 +68,6 @@ inputs["Neighborhood"] = neighborhood_mapping[selected_location]
 
 df = pd.DataFrame([inputs])
 prediction = model.predict(df)[0]
+
 
 st.success(f"💰 Prediksi Harga Rumah: {prediction:,.2f}")
